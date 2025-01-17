@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.management.RuntimeErrorException;
 
+import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ import com.zepto.entity.RetailItems;
 import com.zepto.exception.ItemNotFoundException;
 import com.zepto.service.RetailItemServiceImpl;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/retail-items")
 public class RetailItemController {
@@ -43,24 +45,21 @@ public class RetailItemController {
 
 	@GetMapping("/getAll")
 	public List<RetailItems> getAllRetailItems() {
-		return retailItemService.getAllRetailItems();
+		log.info("Entering getAllRetailItems ");
+		List<RetailItems> retailItems = retailItemService.getAllRetailItems();
+		return retailItems;
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getItemById(@PathVariable Integer id) {
-
+		log.info("Entering getItemById Method ");
 		Optional<RetailItems> retailItem = retailItemService.getRetailItemById(id);
 		if(!retailItem.isPresent()) {
 			throw new ItemNotFoundException("Item not Found with this id : " + id);
 		}
+		log.info("Exiting getItemById Method ");
 		return ResponseEntity.ok(retailItem.get());
-		
-//		if (retailItem.isPresent()) {
-//			return ResponseEntity.ok(retailItem.get());
-//		} else {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item with this Id: " + id + " Not Found");
-//		}
-		
+
 	}
 
 	@DeleteMapping("/{id}")
@@ -98,7 +97,10 @@ public class RetailItemController {
 
 	@GetMapping("/above-rate/{itemRate}")
 	public List<RetailItems> getItemsAboveRate(@PathVariable("itemRate") Double itemRate) {
-		return retailItemService.getItemsAboveRate(itemRate); // Use itemRate instead of price
+		log.info("Entering getItemsAboveRate Method ");
+		List<RetailItems> listOfItems = retailItemService.getItemsAboveRate(itemRate);
+		log.info("Exiting getItemsAboveRate Method ");
+		return listOfItems;
 	}
 
 	@GetMapping("/getItem-category-priceRange")
@@ -118,15 +120,6 @@ public class RetailItemController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }
