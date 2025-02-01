@@ -12,50 +12,52 @@ import java.util.Optional;
 @Service
 public class RetailItemServiceImpl {
 
-	@Autowired
-	private RetailItemDao retailItemDao;
+    @Autowired
+    private RetailItemDao retailItemDao;
 
-	// Method to save a new retail item
-	public RetailItems createRetailItem(RetailItems retailItems) {
-		return retailItemDao.save(retailItems);
-	}
+    // Method to save a new retail item
+    public RetailItems createRetailItem(RetailItems retailItems) {
 
-	// Method to get all retail items
-	public List<RetailItems> getAllRetailItems() {
-		return retailItemDao.findAll();
-	}
+        return retailItemDao.save(retailItems);
+    }
 
-	// Method to get a retail item by ID
-	public Optional<RetailItems> getRetailItemById(Integer id) {
-		return retailItemDao.findById(id);
-	}
+    // Method to get all retail items
+    public List<RetailItems> getAllRetailItems() {
 
-	public void deleteEntryByID(int id) {
-		retailItemDao.deleteById(id);
-	}
+        return retailItemDao.findAll();
+    }
 
-	public Optional<RetailItems> getItemUsingCategoryAndId(String category, Integer itemId) {
-		List<RetailItems> allItems = getAllRetailItems();
+    // Method to get a retail item by ID
+    public Optional<RetailItems> getRetailItemById(Integer id) {
+        return retailItemDao.findById(id);
+    }
 
-		return allItems.stream()
-				.filter(item -> category.equalsIgnoreCase(item.getCategory()) && itemId.equals(item.getItemId()))
-				.findFirst();
-	}
+    public void deleteEntryByID(int id) {
 
-	public List<RetailItems> getAllItemsByCategory(String category) {
+        retailItemDao.deleteById(id);
+    }
 
-		return retailItemDao.findByCategoryIgnoreCase(category);
+    public Optional<RetailItems> getItemUsingCategoryAndId(String category, Integer itemId) {
+        List<RetailItems> allItems = getAllRetailItems();
 
-	}
+        return allItems.stream()
+                .filter(item -> category.equalsIgnoreCase(item.getCategory()) && itemId.equals(item.getItemId()))
+                .findFirst();
+    }
 
-	public List<RetailItems> getItemsAboveRate(Double itemRate) {
-		return retailItemDao.findItemsAboveRate(itemRate); // Use itemRate instead of price
-	}
+    public List<RetailItems> getAllItemsByCategory(String category) {
 
-	public List<RetailItems> getItemsByCategoryAndPriceRange(String category, Double minRate, Double maxRate) {
-		return retailItemDao.getItemsByCategoryAndPriceRange(category,minRate,maxRate);
-	}
+        return retailItemDao.findByCategoryIgnoreCase(category);
 
-	
+    }
+
+    public List<RetailItems> getItemsAboveRate(Double itemRate) {
+        return retailItemDao.findItemsAboveRate(itemRate); // Use itemRate instead of price
+    }
+
+    public List<RetailItems> getItemsByCategoryAndPriceRange(String category, Double minRate, Double maxRate) {
+        return retailItemDao.getItemsByCategoryAndPriceRange(category, minRate, maxRate);
+    }
+
 
 }
