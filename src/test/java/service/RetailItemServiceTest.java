@@ -113,7 +113,7 @@ public class RetailItemServiceTest {
         assertNotNull(result);
         assertEquals(1, result.size());
         assertEquals(iteamName, result.get(0).getItemName());
-//        assertTrue(result.get(0).getItemRate() > rate);
+
     }
 
 }
