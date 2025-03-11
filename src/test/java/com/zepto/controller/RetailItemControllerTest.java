@@ -102,7 +102,7 @@ public class RetailItemControllerTest {
 
     @Test
     public void testGetItemUsingCategoryAndId() {
-        log.info("Entering getItemUsingCategoryAndId method");
+//        log.info("Entering getItemUsingCategoryAndId method");
 
         RetailItems mockItem = new RetailItems(1, "Grocery", "Cofee", 20.0);
         when(retailItemService.getItemUsingCategoryAndId("Grocery", 1)).thenReturn(Optional.of(mockItem));
@@ -112,7 +112,7 @@ public class RetailItemControllerTest {
         assertEquals("Cofee", result.getItemName());
         assertEquals(20.0, result.getItemRate());
         assertEquals("Grocery", result.getCategory());
-        log.info("Exiting getItemUsingCategoryAndId method");
+//        log.info("Exiting getItemUsingCategoryAndId method");
     }
 
     @Test

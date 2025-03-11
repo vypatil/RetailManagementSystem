@@ -1,6 +1,7 @@
 package com.zepto.controller;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import javax.management.RuntimeErrorException;
@@ -45,19 +46,19 @@ public class RetailItemController {
 
 	@GetMapping("/getAll")
 	public List<RetailItems> getAllRetailItems() {
-		log.info("Entering getAllRetailItems ");
+//		log.info("Entering getAllRetailItems ");
 		List<RetailItems> retailItems = retailItemService.getAllRetailItems();
 		return retailItems;
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getItemById(@PathVariable Integer id) {
-		log.info("Entering getItemById Method ");
+//		log.info("Entering getItemById Method ");
 		Optional<RetailItems> retailItem = retailItemService.getRetailItemById(id);
-		if(!retailItem.isPresent()) {
+		if (!retailItem.isPresent()) {
 			throw new ItemNotFoundException("Item not Found with this id : " + id);
 		}
-		log.info("Exiting getItemById Method ");
+//		log.info("Exiting getItemById Method ");
 		return ResponseEntity.ok(retailItem.get());
 
 	}
@@ -97,29 +98,24 @@ public class RetailItemController {
 
 	@GetMapping("/above-rate/{itemRate}")
 	public List<RetailItems> getItemsAboveRate(@PathVariable("itemRate") Double itemRate) {
-		log.info("Entering getItemsAboveRate Method ");
+//		log.info("Entering getItemsAboveRate Method ");
 		List<RetailItems> listOfItems = retailItemService.getItemsAboveRate(itemRate);
-		log.info("Exiting getItemsAboveRate Method ");
+//		log.info("Exiting getItemsAboveRate Method ");
 		return listOfItems;
 	}
 
 	@GetMapping("/getItem-category-priceRange")
 	public ResponseEntity<?> getItemsByCategoryAndPriceRange(@RequestParam String category,
-																	   @RequestParam Double minRate,
-																	   @RequestParam Double maxRate){
-		
-		List<RetailItems> items = retailItemService.getItemsByCategoryAndPriceRange(category,minRate,maxRate);
-		if(!items.isEmpty()) {
+			@RequestParam Double minRate, @RequestParam Double maxRate) {
+
+		List<RetailItems> items = retailItemService.getItemsByCategoryAndPriceRange(category, minRate, maxRate);
+		if (!items.isEmpty()) {
 			return ResponseEntity.ok(items);
-		}
-		else {
+		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No item found for these category: " + category
-					
+
 					+ " in the price range ");
 		}
 	}
-	
-	
 
-	
 }
